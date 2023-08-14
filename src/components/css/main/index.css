@@ -1,0 +1,335 @@
+.homecomp {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 150px;
+}
+
+
+.hiiicon{
+    /* margin-top: 5px; */
+    text-align: center;
+}
+
+.homecompimg {
+    width: 250px;
+}
+
+.homecomptext {
+    width: 60%;
+    align-items: 'center';
+}
+
+.filtercomp {
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.filterinnercomp {
+    width: 25%;
+}
+
+.filteritem {
+    background-color: 'white';
+    box-shadow: 1px 1px 5px 2px #aaaaaa;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 5px
+}
+
+.feedbackandfilter {
+    background-color: #36416A;
+    border-radius: 5px;
+    padding: 20px
+}
+
+.businesslistComp {
+    width: 70%;
+}
+
+.filtername {
+    display: none;
+}
+
+.btn {
+    border: 0;
+    outline: 0;
+    border-radius: 10px;
+    padding: 4px 20px;
+    font-size: 16px;
+    margin: 4px;
+    background-color: rgb(216, 216, 216);
+}
+
+.btn1 {
+    border: 0;
+    outline: 0;
+    border-radius: 10px;
+    padding: 4px 20px;
+    font-size: 16px;
+    margin: 4px;
+    background-color: #C0CEFF;
+}
+
+.btnedit {
+    border: 0;
+    outline: 0;
+    border-radius: 10px;
+    padding: 4px 20px;
+    font-size: 16px;
+    margin: 4px;
+    background-color: #36416A;
+    color: white;
+}
+
+.businessmaincomp {
+    height: 40vh;
+    overflow-y: scroll;
+    scroll-behavior: unset;
+    scrollbar-width: none;
+}
+
+.businessmaincomp::-webkit-scrollbar {
+    display: none;
+}
+
+.addproduct {
+    background-color: #36416A;
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+    padding: 7px 20px;
+    color: white;
+}
+
+
+.Suggestion {
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    padding: 0 10px;
+    height: 35px;
+    margin-bottom: 10px;
+}
+
+.businessCard {
+    background-color: #E1E3E9;
+    padding: 1px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.noofupvote {
+    height: 50px;
+    background-color: #C7CBD6;
+    align-items: center;
+    text-align: center;
+    padding: 0 10px;
+    border-radius: 7px;
+}
+
+/* for modle */
+
+body.active-modal {
+    overflow-y: hidden;
+}
+
+.btn-modal {
+    padding: 10px 20px;
+    display: block;
+    margin: 100px auto 0;
+    font-size: 18px;
+}
+
+.modal,
+.overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.overlay {
+    background: rgba(49, 49, 49, 0.8);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: #f1f1f1;
+    border-radius: 3px;
+    max-width: 700px;
+    min-width: 300px;
+    display: flex;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 7px;
+}
+
+.firstpartofmodal {
+    width: 70%;
+    padding: 60px;
+
+}
+
+.secondpartofmodal {
+    width: 30%;
+    /* padding: 60px 40px; */
+    padding: 14px 28px;
+    padding-right: 100px;
+
+    border-radius: 0px 3px 3px 0px;
+    background-color: #36416A;
+    /* display: none; */
+}
+
+/* from design */
+.imputfild {
+    width: 90%;
+    border: 0;
+    outline: 0;
+    border-bottom: 1px solid #AAAAAA;
+    background: #f1f1f1;
+    margin-top: 20px;
+    font-size: 17px;
+    font-weight: '500';
+}
+
+.addbtn {
+    background-color: #36416A;
+    border: 0;
+    outline: 0;
+    padding: 5px 30px;
+    border-radius: 40px;
+    color: white;
+    font-size: 17px;
+    font-weight: 200;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+@media screen and (max-width:500px) {
+    .homecomp {
+        display: block;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px;
+    }
+
+    .homecompimg {
+        width: 250px;
+        align-items: center;
+        align-self: center;
+    }
+
+    .homecomptext {
+        width: 100%;
+        align-items: 'center';
+    }
+
+    .filtercomp {
+        display: block;
+        /* align-items: center; */
+        justify-content: space-between;
+        padding: 20px;
+    }
+
+    .filtername {
+        display: block;
+        margin-top: -15px;
+        margin-bottom: -0px;
+    }
+
+    .feedbackandfilter {
+        display: none;
+    }
+
+    .filterinnercomp {
+        width: 100%;
+    }
+
+    .filteritem {
+        background-color: 'white';
+        box-shadow: 0px 0px 0px 0px #aaaaaa;
+        border-radius: 5px;
+        padding: 0px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+
+    .businessmaincomp {
+        height: 100%;
+    }
+
+    .businesslistComp {
+        width: 100%;
+    }
+
+    .modal-content {
+        display: block;
+    }
+
+
+    .firstpartofmodal {
+        width: 80%;
+        padding: 20px;
+        align-items: center;
+
+    }
+
+    .addproduct {
+        background-color: #36416A;
+        border: 0;
+        outline: 0;
+        border-radius: 5px;
+        padding: 7px 5px;
+        color: white;
+    }
+
+    .secondpartofmodal {
+
+        display: none;
+
+        border-radius: 0px 3px 3px 0px;
+        background-color: #36416A;
+        /* display: none; */
+    }
+
+    .imputfild {
+        width: 100%;
+        border: 0;
+        outline: 0;
+        border-bottom: 1px solid #AAAAAA;
+        background: #f1f1f1;
+        margin-top: 20px;
+        font-size: 17px;
+        font-weight: '500';
+    }
+
+    .addbtn {
+        width: 80%;
+        padding: 5px 30px;
+        border-radius: 40px;
+        color: white;
+        font-size: 17px;
+        font-weight: 200;
+        margin-top: 20px;
+        cursor: pointer;
+        margin-left: 10%;
+    }
+
+}

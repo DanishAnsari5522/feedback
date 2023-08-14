@@ -1,0 +1,23 @@
+.Header{
+    background-color: #36416A;
+    height: 50px;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    color: white;
+}
+
+.loginsignup{
+    display: flex;
+    align-items: center;
+}
+
+
+
+.signup{
+    border: 1px solid white;
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 5px 10px ;
+}
