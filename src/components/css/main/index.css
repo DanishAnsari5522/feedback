@@ -6,7 +6,7 @@
 }
 
 
-.hiiicon{
+.hiiicon {
     /* margin-top: 5px; */
     text-align: center;
 }
@@ -33,16 +33,19 @@
 
 .filteritem {
     background-color: 'white';
-    box-shadow: 1px 1px 5px 2px #aaaaaa;
-    border-radius: 5px;
+    box-shadow: 1px 1px 10px 1px #aaaaaa;
+    border-radius: 15px;
     padding: 20px;
     margin-top: 5px
 }
 
 .feedbackandfilter {
     background-color: #36416A;
-    border-radius: 5px;
-    padding: 20px
+    border-radius: 15px;
+    padding: 20px;
+    padding-top:40px;
+    overflow: hidden;
+    max-height:100px ;
 }
 
 .businesslistComp {
@@ -51,6 +54,11 @@
 
 .filtername {
     display: none;
+}
+
+::-webkit-scrollbar-thumb {
+    background: red;
+    border-radius: 10px;
 }
 
 .btn {
@@ -195,6 +203,29 @@ body.active-modal {
     border-radius: 0px 3px 3px 0px;
     background-color: #36416A;
     /* display: none; */
+}
+
+.commentComp {
+    position: relative;
+}
+
+.commentInput {
+    width: 90%;
+    border: 2px solid #C7CBD6;
+    outline: none;
+    border-radius: 50px;
+    padding: 10px;
+    font-size: 19px;
+    margin-bottom: 10px;
+    margin-left: 3%;
+
+}
+
+.shereicon {
+    position: 'absolute';
+    text-align: 'center';
+    right: 10%;
+    padding-top: 8px
 }
 
 /* from design */

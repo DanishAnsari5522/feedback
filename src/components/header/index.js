@@ -115,11 +115,11 @@ export default function Header(props) {
         localStorage.clear("FeedbackCurrentUser");
         window.location.replace("/");
     }
-    console.log(props.login, "from test");
+    // console.log(props.login, "from test");
 
 
     useEffect(() => {
-        console.log(props.login, "from");
+        // console.log(props.login, "from");
         const Auth = JSON.parse(localStorage.getItem("FeedbackCurrentUser"))
         if (Auth) {
             setAuth(Auth.data)

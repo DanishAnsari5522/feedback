@@ -2,17 +2,21 @@ import React, { useState, useEffect } from "react";
 import Header from "../../header";
 import img1 from '../../assest/homeimg.png'
 import '../../css/main/index.css';
-import { Chat, CaretUp, ChatCircleText } from 'phosphor-react';
+import { Chat, CaretUp, ChatCircleText, PaperPlaneRight } from 'phosphor-react';
 
 
 
 export default function Home() {
     const [filter, setFilter] = useState('all');
     const [modal, setModal] = useState(false);
+    const [messagemodel, setMessageModel] = useState('');
     const [auth, setAuth] = useState();
     const [forAddProductAuth, setForAddProductAuth] = useState(false);
     const [token, setToken] = useState();
     const [getAllProductState, setGetAllProductState] = useState([]);
+    const [switchProductType, setSwitchProductType] = useState('');
+    const [currendtId, setCurrentId] = useState();
+    const [comment, setComment] = useState();
 
 
     const [productName, setProductName] = useState('')
@@ -28,26 +32,48 @@ export default function Home() {
         getAllProduct(item)
 
     }
-    const toggleModal = () => {
+    const toggleModal = async (type, currentProductId) => {
+        console.log(type);
         if (auth) {
             setModal(!modal);
+            setSwitchProductType(type)
+
         } else {
             setForAddProductAuth(false)
             console.log(modal);
         }
+        if (type == 'edit') {
+            let result1 = await fetch(`http://localhost:5000/v1/product/getProductById/?id=${currentProductId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            );
+            result1 = await result1.json();
+            if (result1) {
+                var data1 = result1;
+                console.log(data1);
+                setProductName(data1.data.companyName)
+                setProductCategory(data1.data.category.toString())
+                setProductLogoUrl(data1.data.logoURL)
+                setProductLink(data1.data.productLink)
+                setProductDescription(data1.data.discription)
+            }
+            setCurrentId(currentProductId)
+            console.log(currentProductId);
+        }
 
     };
 
-    if (modal) {
-        document.body.classList.add('active-modal')
-    } else {
-        document.body.classList.remove('active-modal')
-    }
+
 
 
     const handleAddProduct = () => {
         setError('')
         setSuccess('')
+        console.log(token);
         if (!productName) {
             setError("Product Name Required")
         } else if (!productCategory) {
@@ -62,7 +88,8 @@ export default function Home() {
             fetch('http://localhost:5000/v1/product/addProduct', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({ companyName: productName, category: productCategory, logoURL: productLogoUrl, productLink: productLink, discription: productDescription })
             }).then(res => res.json()).then(
@@ -71,8 +98,117 @@ export default function Home() {
                     if (data.success == false) {
                         setError(data.message);
                     } else if (data.success == true) {
-                        alert("done")
-                        console.log(data, data.token);
+                        // alert("done")
+                        // window.location.reload();
+                        setModal(false)
+                        toggleModal()
+                        getAllProduct('all')
+                    }
+                }
+            )
+        }
+    }
+
+    const handleEditProduct = () => {
+        console.log(currendtId);
+        fetch(`http://localhost:5000/v1/product/updateProduct/${currendtId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ companyName: productName, category: productCategory.split(","), logoURL: productLogoUrl, productLink: productLink, discription: productDescription })
+        }).then(res => res.json()).then(
+            async data => {
+                console.log(data);
+                if (data.success == false) {
+                    setError(data.message);
+                } else if (data.success == true) {
+                    // window.location.reload();
+                    setModal(false)
+                    toggleModal()
+                    getAllProduct('all')
+
+                }
+            }
+        )
+    }
+
+    const handleComment = async (currentProductId) => {
+        let newComment;
+
+        let result1 = await fetch(`http://localhost:5000/v1/product/getProductById/?id=${currentProductId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+        );
+        result1 = await result1.json();
+        if (result1) {
+            var data1 = result1;
+            // console.log(data1.data.comment);
+
+            // console.log(data1);
+            newComment = data1.data.comment;
+            let obj = {
+                "Msg": comment
+            }
+            newComment.push(obj);
+
+            fetch(`http://localhost:5000/v1/product/updateProduct/${currentProductId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ comment: newComment })
+            }).then(res => res.json()).then(
+                async data => {
+                    console.log(data);
+                    if (data.success == false) {
+                        setError(data.message);
+                    } else if (data.success == true) {
+                        // window.location.reload();
+                        getAllProduct('all')
+                    }
+                }
+            )
+
+            // console.log(data1.data.comment);
+            // console.log(comment + newComment);
+        }
+    }
+
+
+    const handleVote = async (currentProductId) => {
+        let result1 = await fetch(`http://localhost:5000/v1/product/getProductById/?id=${currentProductId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+        );
+        result1 = await result1.json();
+        if (result1) {
+            var data1 = result1;
+            console.log(data1.data);
+            fetch(`http://localhost:5000/v1/product/updateProduct/${currentProductId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ vote: data1.data.vote + 1 })
+            }).then(res => res.json()).then(
+                async data => {
+                    console.log(data);
+                    if (data.success == false) {
+                        setError(data.message);
+                    } else if (data.success == true) {
+                        getAllProduct('all')
                     }
                 }
             )
@@ -80,7 +216,7 @@ export default function Home() {
     }
 
     const getAllProduct = async (item) => {
-        console.log(token);
+        // console.log(token);
         console.log("item name from get product" + item);
         if (item == 'all') {
             let result = await fetch(`http://localhost:5000/v1/product/getAllProduct`, {
@@ -92,6 +228,7 @@ export default function Home() {
             }
             );
             result = await result.json();
+            // console.log(result);
             if (result) {
                 var data1 = result;
                 setGetAllProductState(data1);
@@ -139,8 +276,8 @@ export default function Home() {
                 <div className="filtercomp">
                     <div className="filterinnercomp">
                         <div className="feedbackandfilter">
-                            <p>Feedback</p>
-                            <p>Apply Filter</p>
+                            <p style={{fontSize:32,color:'white'}}>Feedback</p>
+                            <p style={{fontSize:18,color:'white',marginTop:-30}}>Apply Filter</p>
                         </div>
                         <p className="filtername">Filter:</p>
                         <div className="filteritem">
@@ -160,7 +297,7 @@ export default function Home() {
                                 <p>sort by:<span style={{ fontSize: 17, fontWeight: '600', marginLeft: 5, marginTop: 10 }}>Upvotes<CaretUp size={19} /></span></p>
                             </div>
                             <div>
-                                <button onClick={() => { toggleModal() }} className="addproduct">+ Add Product</button>
+                                <button onClick={() => { toggleModal('add', null) }} className="addproduct">+ Add Product</button>
                             </div>
                         </div>
                         <div className="businessmaincomp">
@@ -179,13 +316,13 @@ export default function Home() {
                                                         </div>
                                                     </div>
                                                     <div className="noofupvote">
-                                                        <CaretUp size={19} />
-                                                        <p style={{ marginTop: -5 }}>999</p>
+                                                        <CaretUp size={19} onClick={() => { handleVote(ind._id) }} />
+                                                        <p style={{ marginTop: -5 }}>{ind.vote}</p>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginLeft: 50 }}>
-                                                        <div style={{alignItems:'center',textAlign:'center'}}>
+                                                        <div style={{ alignItems: 'center', textAlign: 'center' }}>
                                                             {
                                                                 ind.category.map((val) => {
                                                                     return (
@@ -195,19 +332,34 @@ export default function Home() {
                                                                     )
                                                                 })
                                                             }
-                                                            <ChatCircleText size={32} className="hiiicon"/>
+                                                            <ChatCircleText size={32} className="hiiicon" onClick={() => { setMessageModel(ind._id) }} />
                                                         </div>
                                                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginLeft: 0 }}>
-                                                            {auth && <button className="btnedit" disabled>Edit</button>}
-                                                            <div style={{ display: 'flex' }}>
-                                                                <p style={{ marginRight: 5 }}>7</p><p><Chat size={22} weight="fill" /></p>
+                                                            {auth && <button className="btnedit" onClick={() => { toggleModal('edit', ind._id) }} >Edit</button>}
+                                                            <div style={{ display: 'flex' }} onClick={() => { setMessageModel(ind._id) }}>
+                                                                <p style={{ marginRight: 5 }}>{ind.comment.length}</p><p><Chat size={22} weight="fill" /></p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                {
+                                                    messagemodel == ind._id &&
+                                                    <div style={{ maxHeight: 200, overflowY: 'scroll' }}>
+                                                        <div className="commentComp" >
+                                                            <PaperPlaneRight size={24} style={{ position: 'absolute', textAlign: 'center', right: '6%', paddingTop: 10, cursor: 'pointer' }} color="#ABABAB" onClick={() => { handleComment(ind._id) }} />
+                                                            <input type="text" placeholder="Add a comment...." className="commentInput" value={comment} onChange={(e) => setComment(e.target.value)} />
+                                                        </div>
+                                                        {
+                                                            (ind.comment).map((commentdan) => {
+                                                                return (<p>{commentdan.Msg}</p>)
+                                                            })
+                                                        }
+                                                    </div>
+                                                }
 
-                                        </>)
+                                            </div>
+                                        </>
+                                    )
                                 })
                             }
                         </div>
@@ -216,8 +368,6 @@ export default function Home() {
                 </div>
             </div>
 
-
-
             {
                 modal && (
                     <div className="modal">
@@ -225,7 +375,7 @@ export default function Home() {
                         <div className="modal-content">
                             <div className="firstpartofmodal">
                                 {error && <p style={{ color: 'red' }}>{error}</p>}
-                                <p style={{ fontSize: 22, fontWeight: '600', marginBottom: 5 }}>Add Your Product</p>
+                                <p style={{ fontSize: 22, fontWeight: '600', marginBottom: 5 }}>{switchProductType == 'add' ? 'Add' : 'Edit'} Your Product</p>
                                 {/* <form> */}
                                 <input type="text" name="name" placeholder="Name of the Company" className="imputfild" value={productName} onChange={(e) => setProductName(e.target.value)} />
 
@@ -238,7 +388,8 @@ export default function Home() {
                                 <input type="text" name="name" placeholder="Add disctioption" className="imputfild" value={productDescription} onChange={(e) => setProductDescription(e.target.value)} />
 
 
-                                <br></br><input type="submit" value="+Add" className="addbtn" onClick={handleAddProduct} />
+                                <br></br>
+                                {switchProductType == 'add' ? <input type="submit" value="+Add" className="addbtn" onClick={handleAddProduct} /> : <input type="submit" value="Edit" className="addbtn" onClick={handleEditProduct} />}
 
                                 {/* </form> */}
                             </div>
