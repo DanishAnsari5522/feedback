@@ -316,7 +316,7 @@ export default function Home() {
                                                         </div>
                                                     </div>
                                                     <div className="noofupvote">
-                                                        <CaretUp size={19} onClick={() => { handleVote(ind._id) }} />
+                                                        <CaretUp size={19} onClick={() => { handleVote(ind._id) }} style={{cursor:'pointer'}} />
                                                         <p style={{ marginTop: -5 }}>{ind.vote}</p>
                                                     </div>
                                                 </div>
