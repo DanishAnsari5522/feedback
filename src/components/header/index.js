@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import '../css/header/index.css';
-import { EnvelopeSimple, LockKey,User,DeviceMobile } from 'phosphor-react'
+import { EnvelopeSimple, LockKey, User, DeviceMobile } from 'phosphor-react'
 
 export default function Header(props) {
     const [loginmodal, setModal] = useState(false);
@@ -52,7 +52,7 @@ export default function Header(props) {
         } else if (!loginPassword) {
             setError("Password Required")
         } else {
-            fetch('http://localhost:5000/v1/auth/login', {
+            fetch('https://feedback-api-e1wj.onrender.com/v1/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ export default function Header(props) {
         } else if (!signupPassword) {
             setSignupError("Password Required")
         } else {
-            fetch('http://localhost:5000/v1/auth/signup', {
+            fetch('https://feedback-api-e1wj.onrender.com/v1/auth/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -187,23 +187,23 @@ export default function Header(props) {
 
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
                                     <span style={{ top: 18, textAlign: 'center', position: 'absolute', marginRight: 20 }}><User size={30} weight="fill" /></span>
-                                    <input type="text" name="name" placeholder="Name" className="imputfild" value={signupName} onChange={(e) => setSignupName(e.target.value)} style={{ marginLeft: 35 }}/>
+                                    <input type="text" name="name" placeholder="Name" className="imputfild" value={signupName} onChange={(e) => setSignupName(e.target.value)} style={{ marginLeft: 35 }} />
                                 </div>
 
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
                                     <span style={{ top: 18, textAlign: 'center', position: 'absolute', marginRight: 20 }}><EnvelopeSimple size={30} /></span>
-                                    <input type="text" name="name" placeholder="Email" className="imputfild" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} style={{ marginLeft: 35 }}/>
+                                    <input type="text" name="name" placeholder="Email" className="imputfild" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} style={{ marginLeft: 35 }} />
                                 </div>
 
 
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
                                     <span style={{ top: 18, textAlign: 'center', position: 'absolute', marginRight: 20 }}><DeviceMobile size={30} /></span>
-                                    <input type="text" name="name" placeholder="Mobile" maxLength={10} className="imputfild" value={signupMobile} onChange={(e) => setSignupMobile(e.target.value)} style={{ marginLeft: 35 }}/>
+                                    <input type="text" name="name" placeholder="Mobile" maxLength={10} className="imputfild" value={signupMobile} onChange={(e) => setSignupMobile(e.target.value)} style={{ marginLeft: 35 }} />
                                 </div>
 
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
                                     <span style={{ top: 18, textAlign: 'center', position: 'absolute', marginRight: 20 }}><LockKey size={30} weight="fill" /></span>
-                                    <input type="password" name="name" placeholder="Password" className="imputfild" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} style={{ marginLeft: 35 }}/>
+                                    <input type="password" name="name" placeholder="Password" className="imputfild" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} style={{ marginLeft: 35 }} />
                                 </div>
 
 

@@ -43,7 +43,7 @@ export default function Home() {
             console.log(modal);
         }
         if (type == 'edit') {
-            let result1 = await fetch(`http://localhost:5000/v1/product/getProductById/?id=${currentProductId}`, {
+            let result1 = await fetch(`https://feedback-api-e1wj.onrender.com/v1/product/getProductById/?id=${currentProductId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ export default function Home() {
         } else if (!productDescription) {
             setError("Product description Required")
         } else {
-            fetch('http://localhost:5000/v1/product/addProduct', {
+            fetch('https://feedback-api-e1wj.onrender.com/v1/product/addProduct', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ export default function Home() {
 
     const handleEditProduct = () => {
         console.log(currendtId);
-        fetch(`http://localhost:5000/v1/product/updateProduct/${currendtId}`, {
+        fetch(`https://feedback-api-e1wj.onrender.com/v1/product/updateProduct/${currendtId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -137,7 +137,7 @@ export default function Home() {
     const handleComment = async (currentProductId) => {
         let newComment;
 
-        let result1 = await fetch(`http://localhost:5000/v1/product/getProductById/?id=${currentProductId}`, {
+        let result1 = await fetch(`https://feedback-api-e1wj.onrender.com/v1/product/getProductById/?id=${currentProductId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ export default function Home() {
             }
             newComment.push(obj);
 
-            fetch(`http://localhost:5000/v1/product/updateProduct/${currentProductId}`, {
+            fetch(`https://feedback-api-e1wj.onrender.com/v1/product/updateProduct/${currentProductId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -183,7 +183,7 @@ export default function Home() {
 
 
     const handleVote = async (currentProductId) => {
-        let result1 = await fetch(`http://localhost:5000/v1/product/getProductById/?id=${currentProductId}`, {
+        let result1 = await fetch(`https://feedback-api-e1wj.onrender.com/v1/product/getProductById/?id=${currentProductId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -195,7 +195,7 @@ export default function Home() {
         if (result1) {
             var data1 = result1;
             console.log(data1.data);
-            fetch(`http://localhost:5000/v1/product/updateProduct/${currentProductId}`, {
+            fetch(`https://feedback-api-e1wj.onrender.com/v1/product/updateProduct/${currentProductId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -219,7 +219,7 @@ export default function Home() {
         // console.log(token);
         console.log("item name from get product" + item);
         if (item == 'all') {
-            let result = await fetch(`http://localhost:5000/v1/product/getAllProduct`, {
+            let result = await fetch(`https://feedback-api-e1wj.onrender.com/v1/product/getAllProduct`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -234,7 +234,7 @@ export default function Home() {
                 setGetAllProductState(data1);
             }
         } else {
-            let result1 = await fetch(`http://localhost:5000/v1/product/filterProduct/${item}`, {
+            let result1 = await fetch(`https://feedback-api-e1wj.onrender.com/v1/product/filterProduct/${item}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
